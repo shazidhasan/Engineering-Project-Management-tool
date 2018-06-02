@@ -1,0 +1,7 @@
+ <ul>
+  <li *ngFor="let project of projects">
+    {{project.Title}}
+    <button (click)="openprojectDialog(project)">Edit project</button>
+  <li>
+</ul> 
+<button (click)="openprojectDialog()">Add project</button>

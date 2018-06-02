@@ -1,0 +1,273 @@
+$color__inactive: #616161;
+$color__primary: #3F51B5;
+$color__read: #9F9F9F;
+$color__checkbox__star: #616161;
+
+$prefix: 'error';
+
+.#{$prefix} {
+  position: relative;
+  min-height: 45px;
+  max-height: 60px;
+  padding: 8px 24px;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  color: $color__inactive;
+  transition: background .1s ease-in-out;
+  border-bottom: 1px solid #EEE;
+  cursor: pointer;
+
+  &.read {
+    color: $color__read;
+    font-weight: normal;
+  }
+
+  &.active,
+  &:hover {
+    background: #EEE;
+  }
+}
+
+.#{$prefix}-container {
+  margin: 15px;
+}
+
+.floatLeft
+{
+  float:left;  
+}
+
+.floatRight
+{
+  float: right;  
+}
+
+.#{$prefix}-main {
+  margin-top: 10px;
+}
+
+.#{$prefix}-toolbar {
+  box-sizing: border-box;
+  min-height: 60px;
+  max-height: 60px;
+  border-bottom: 1px solid #eee;
+  padding: 8px 24px;
+  color: $color__inactive;
+}
+
+.start-wrapper {
+  padding-right: 8px;
+
+  .checkbox {
+    margin: 0 8px 0 0;
+    color: $color__checkbox__star;
+  }
+}
+
+.content-wrapper {
+  white-space: nowrap;
+  overflow-x: hidden;
+  display: block;
+  margin: 0;
+}
+
+.end-wrapper {
+  margin-left: 16px;
+}
+
+::ng-deep .mat-select-content{
+  width:180px;
+  font-size: 12px;
+}
+
+.mat-select-panel
+{
+  width:180px;
+}
+
+/* class repeated for increased specificity */
+.mat-form-field.mat-form-field {
+  width: 91%;
+}
+
+
+#taskAddBar .example-full-width .mat-form-field-infix
+{
+  width:100%;
+  padding: 0 0 0 0;
+  font-size: 13px;
+}
+
+#taskAddBar #selectsortby .mat-select
+{
+ width: 40%;
+}
+
+#taskAddBar #selectsortorder .mat-select
+{
+  width: 25%;
+}
+
+#taskAddBar .example-full-width  .mat-form-field-underline
+{
+  display: none;
+}
+
+#taskAddBar .example-full-width .mat-form-field-wrapper
+{
+  padding-bottom: 0;
+}
+
+#selectedTask
+{
+  vertical-align: middle;
+  padding-bottom: 10px;
+  font-size: 12px;
+}
+
+#selectedTask .mat-select
+{
+ width:120px;
+}
+
+.jensenengineers  .mat-select-value
+ {
+   color:#462bb1;
+ }
+
+.aligned-with-icon
+{
+  position: relative;
+  top: -5px;
+  margin-left: 5px; /* optional */
+}
+
+// #buttonToggleGroup .mat-button-toggle-group
+// {
+//   // height:50px;
+//   line-height: 5px;  
+// }
+
+#buttonToggleGroup .mat-button-toggle-group
+{
+  width:100%;
+}
+
+
+#buttonToggleGroup .mat-button-toggle-group .mat-button-toggle:hover
+{
+ background-color: gray;
+ color: black;
+ font-weight: bold;
+}
+
+#buttonToggleGroup 
+//.mat-button-toggle-group .mat-button-toggle .mat-button-toggle-label 
+.mat-button-toggle-label-content
+{
+  line-height: 5px; 
+}
+
+// #buttonToggleGroup .mat-button-toggle-group .mat-button-toggle.mat-button-toggle-checked
+// {
+//   background-color: white;
+//   color: gray;
+//   font-weight: bold;
+// }
+
+
+#taskFilter .sortbyfilter
+{
+  width:100px;
+}
+
+#taskFilter .sortorderfilter
+{
+  width:50px;
+}
+
+
+
+#errorlist .error-toolbar
+{
+  min-height: 50px;
+}
+
+
+#buttonToggleGroup .mat-button-toggle-group .mat-button-toggle .mat-button-toggle-label .mat-button-toggle-label-content
+{
+  line-height: 15px;
+}
+
+.daterangepicker
+{
+  z-index: 1000;
+}
+
+.left
+{
+  float: left;
+}
+
+.right
+{
+  float: right;
+}
+
+.drp-buttons
+{
+  float:right;
+}
+
+.daterangepicker.show-calendar .calendar.right
+{
+  display:none;
+}
+
+
+
+
+.app-error
+{
+  position: relative;
+  float: left;
+  min-height: 520px;
+}
+
+.boxshadow
+{
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19);
+  overflow: auto;
+  padding: 15px;
+  font: 12px;
+}
+
+
+.drp-calendar.right
+{
+  display: none;
+}
+
+.daterangepicker
+{
+  width:260px !important; 
+  border:1px solid #cccccc
+}
+
+.drp-buttons .drp-selected
+{
+  float: left;
+  width:100%;
+}
+
+.drp-buttons .drp-selected .cancelBtn,.drp-buttons .drp-selected .applyBtn
+{
+  float:right;
+}
+
+/* When the input is not focused */
+mat-form-field-label {  
+  font-size:13px !important;
+}

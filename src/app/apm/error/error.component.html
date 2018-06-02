@@ -1,0 +1,1134 @@
+<div style="width:100%;float: left;" id="taskAddBar">
+    <div class="floatLeft"  style="font-size: 15px;width:42%;">
+        <a (click)="openDialog()" class="addbtn"  ><mat-icon>add_circle</mat-icon></a>
+        <span class="aligned-with-icon">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Add new Task" style="padding-left:10px; width:100%;float: left;height: 25px" value="" />
+          </mat-form-field>
+        </span>
+  </div>
+  <div style="font-size: 15px;;padding-left: 10px;width:21%;float: left;padding-top: 10px;" id="selectsortby">
+      <div style="float:right">
+          <span>sort by </span>
+          <mat-select [(ngModel)]="sortby" class="sortbyfilter" (ngModelChange)="onChange($event)" name="sortby">
+            <mat-option *ngFor="let sortby of sortBys" [value]="sortby.value">
+              {{ sortby.viewValue }}
+            </mat-option>
+          </mat-select>
+      </div>
+  </div>
+  <div style="font-size: 15px;width:37%;float: left;padding-top: 10px;"  id="selectsortorder">
+      <div style="float:right">
+        <span>sort order</span>
+        <mat-select [(ngModel)]="sortorder" class="sortorderfilter" name="sortorder" >
+          <mat-option value="asc">Ascending</mat-option>
+          <mat-option value="desc">Descending</mat-option>
+        </mat-select>
+      </div>
+  </div>
+
+  
+    
+      
+</div>
+
+<!-- <div id="selectedTask" style="width:100%;float: left;">
+<mat-icon>keyboard_arrow_right</mat-icon>
+<span class="aligned-with-icon">Task will be created in
+  <mat-select [(ngModel)]="selectedproject" class="selectedproject" name="selectedproject" >
+    <mat-option value="1">First Project</mat-option>
+    <mat-option value="2">2nd Project</mat-option>
+    <mat-option value="3">3rd Project</mat-option>
+  </mat-select>
+</span>
+</div> -->
+
+<!-- <div style="float: left;position: relative;width: 100%" >
+  <a *ngIf="projectId;"  (click)="openDialog()" class="addbtn"  ><mat-icon >add circle</mat-icon>New Task</a>
+</div> -->
+
+<div style="font-size: 12px;float: left;width: 100%" id="buttonToggleGroup">
+
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style"  value="all">
+    <mat-button-toggle value="active">
+      <span>Active</span>
+      <br/>
+      <mat-icon>donut_large</mat-icon><span>8</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="completed">
+      <span>Completed</span>
+      <br/>
+      <mat-icon>done_outline</mat-icon><span>7</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="duetoday">
+      <span>Due Today</span>
+      <br/>
+      <mat-icon>date_range</mat-icon><span>6</span>
+      </mat-button-toggle>
+    <mat-button-toggle value="late">
+      <span>Late</span>
+      <br/>
+      <mat-icon>report_problem</mat-icon><span>5</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="all">
+      <span>All</span>
+      <br/>
+      <mat-icon>explore</mat-icon><span>4</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="taskInProgress">
+      <span>Task in progress</span>
+      <br/>
+      <mat-icon>group_work</mat-icon><span>3</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="paused">
+      <span>Paused</span>
+      <br/>
+      <mat-icon>pause_circle_outline</mat-icon><span>2</span>  
+    </mat-button-toggle>
+
+    <mat-button-toggle value="date_range">
+        <span>Date Range</span>
+        <br/>
+        <!-- <input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" /> -->
+
+        <!-- <input daterangepicker
+                (selected)="dateSelected($event)"
+                [options]="pickerOptions" type="submit"
+                [disabled]="disabled"
+                value="{{datelabel}}"
+                class="form-control btn btn-primary inputField"/> -->
+
+      <input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" ng-model="daterange" />
+
+        <!-- <mat-icon>date_range</mat-icon><span>12</span> -->
+      </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<!-- <div style="padding-top: 10px;font-size: 11px;width: 100%;float: left;border-bottom: 1px solid #cccccc;height: 30px;" id="taskFilter">
+
+  <div class="floatLeft" style="font-size: 15px;width:50%;padding-left: 10px">
+    <span>sort by </span>
+      <mat-select [(ngModel)]="sortby" class="sortbyfilter" (ngModelChange)="onChange($event)" name="sortby">
+        <mat-option *ngFor="let sortby of sortBys" [value]="sortby.value">
+          {{ sortby.viewValue }}
+        </mat-option>
+      </mat-select>    
+  </div>
+
+  <div class="floatRight"  style="font-size: 15px;width:13%;">
+      <span>sort order
+      <mat-select [(ngModel)]="sortorder" class="sortorderfilter" name="sortorder" >
+        <mat-option value="asc">ASC</mat-option>
+        <mat-option value="desc">DESC</mat-option>
+      </mat-select>
+    </span>
+  </div>
+</div> -->
+
+<!-- <div style="padding-top: 10px;padding-left: 10px; font-size: 11px;width: 100%;float: left;border-bottom: 1px solid #cccccc;height: 30px;">
+  <span>Project management software</span>
+</div> -->
+
+
+<div style="font-size: 12px;width: 100%;float: left;background-color:#f9f7f7;overflow-y: scroll;max-height: 235px;" id="errorlist">  
+    <div class="error-toolbar" fxLayout="row" fxLayoutAlign="start center" style="background-color: #f4f4f2">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex="240px">
+    
+        <!-- <mat-checkbox class="checkbox" (change)="onCheckBoxAllTrigger($event)" [(ngModel)]="checked"></mat-checkbox> -->
+
+        <span style="font-weight: bold">Task</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span style="font-weight: bold">Deadline</span>
+      </div>
+
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+          <span style="font-weight: bold">Project</span>
+        </div>
+    </div>
+
+    <div class="error-list" >
+      <a class="error" fxLayout="row" *ngFor="let task of tasks" (click)="onDetailTriggered(task)">
+        <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex="240px">
+
+          <!-- <mat-checkbox class="checkbox" [checked]="checked"></mat-checkbox> -->
+          <span>{{ task.TaskName }}</span>
+        </div>
+
+        <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+          <span>{{ task.Deadline  | date: 'dd/MM/yyyy'}}</span>
+        </div>       
+
+        <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+            <span>{{ task.ProjectName }}</span>
+          </div>       
+      </a>    
+
+  </div>
+</div>
+
+  <!-- <div #noProject class="error-main mat-elevation-z2"  >
+    No Task.
+  </div> 
+  
+</div>-->
+
+<div style="font-size: 15px;width: 100%;float: left;background-color:#f9f7f7;bottom:0;position:absolute;max-height: 200px;overflow-y: scroll;border-top: 1px solid #cccccc"  id="detailInfo">  
+
+    <div *ngIf="projectId && isEdit">
+        <div style="width: 100%;float: left;" class="boxshadow">
+    <form [formGroup]="projectform" novalidate (ngSubmit)="submitproject(projectform)" style="position: relative;font-size: 13px;">
+        <h1 mat-dialog-title>Edit project</h1>
+        <div style="float: left;width: 33%">
+        <mat-form-field>
+          <mat-select placeholder="Client" formControlName="clientSelect">
+          <mat-option *ngFor="let client of clients" [value]="client.value">
+            {{ client.viewValue }}
+          </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <input matInput formControlName="projectname" placeholder="Project Name">
+          </mat-form-field>
+        </div><div style="float: left;width: 33%">          
+          <mat-form-field>
+            <input matInput formControlName="projectNumber" placeholder="Project Number">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <mat-select placeholder="Status" formControlName="projectStatusSelect" >
+              <mat-option *ngFor="let status of projectStatuses" [value]="status.value">
+                {{ status.viewValue  }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <mat-select placeholder="Priority" formControlName="projectPrioritySelect">
+              <mat-option *ngFor="let priority of projectpriorities" [value]="priority.value">
+                {{ priority.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div style="float: left;width: 33%">
+      
+          <mat-form-field>
+            <mat-select placeholder="Project Type" formControlName="projectTypesSelect">
+              <mat-option *ngFor="let type of ProjectTypes" [value]="type.value">
+                {{ type.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div style="float: left;width: 25%">
+          <mat-form-field>
+            <input matInput formControlName="planName" placeholder="Plan Name">
+          </mat-form-field>
+        </div><div style="float: left;width: 25%">
+          <mat-form-field>
+            <input matInput formControlName="planNumber" placeholder="Plan Number">
+          </mat-form-field>
+       </div><div style="float: left;width: 25%"> 
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerStart" placeholder="Start Date" formControlName="pickerStart" >
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>            
+          </mat-form-field>
+       </div><div style="float: left;width: 25%"> 
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerEnd" placeholder="Due Date" formControlName="pickerEnd" >
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div><div style="float: left;width: 25%">
+          <mat-form-field>
+            <input matInput formControlName="jobAddress" placeholder="Address">
+          </mat-form-field>
+      </div><div style="float: left;width: 25%">
+          <mat-form-field>
+            <input matInput formControlName="city" placeholder="City">
+          </mat-form-field>
+      </div><div style="float: left;width: 25%">
+          <mat-form-field>
+            <mat-select placeholder="State" formControlName="projectStateSelect">
+              <mat-option *ngFor="let state of states" [value]="state.value">
+                {{ state.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div><div style="float: left;width: 25%">
+          <mat-form-field>
+            <input matInput formControlName="jobZipAddress" placeholder="ZipCode">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <mat-select placeholder="Reviewed By" formControlName="reviewdBySelect">
+              <mat-option *ngFor="let employee of employees" [value]="employee.value">
+                {{ employee.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div><div style="float: left;width: 60%">
+      
+          <mat-form-field>
+            <input matInput formControlName="projectTypeNotes" placeholder="Project Type Notes">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+      
+          <mat-checkbox formControlName="isFoundation">Is Foundation?</mat-checkbox>
+      </div><div style="float: left;width: 33%">
+           <mat-form-field>
+            <mat-select placeholder="Foundation Type" formControlName="foundationTypeSelect">
+              <mat-option *ngFor="let type of FoundationTypes" [value]="type.value">
+                {{ type.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <input matInput formControlName="CrawlSpaceJoist" placeholder="Crawl Space Joist">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+      
+          <mat-checkbox formControlName="isHaveSoilsReport">Is Have Soils Report?</mat-checkbox>
+      </div><div style="float: left;width: 66%">
+          <mat-form-field>
+            <input matInput formControlName="How_WhenSending" placeholder="How/When Send?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-checkbox formControlName="isFraming">Is Framing?</mat-checkbox>
+       </div><div style="float: left;width: 33%">   
+          <mat-form-field>
+            <input matInput formControlName="typeOfFloorJoist" placeholder="Type of Floor Joist?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+      
+          <mat-form-field>
+            <input matInput formControlName="maxFloorJoistSpacing" placeholder="Max Floor Joist Spacing?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <input matInput formControlName="typeOfCeilingJoist" placeholder="Type Of Ceiling Joist?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+        
+          <mat-form-field>
+            <input matInput formControlName="roofingMaterials" placeholder="Roofing Materials?">
+          </mat-form-field>
+        
+      </div><div style="float: left;width: 33%">
+        
+          <mat-form-field>
+            <input matInput formControlName="weightOfRoofingMaterials" placeholder="Weight Of Roofing Materials?">
+          </mat-form-field>
+        
+      </div><div style="float: left;width: 100%">
+        
+          <mat-form-field>
+            <input matInput formControlName="projectMaterialNotes" placeholder="Project Material Notes?">
+          </mat-form-field>
+      
+      </div>
+      <div style="float: left;width: 33%">
+      
+          <mat-checkbox formControlName="isHaveCourierPlans">Is Have Courier Plans?</mat-checkbox>
+        </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <input matInput formControlName="couriertoWhom" placeholder="Courier to Whom?">
+          </mat-form-field>
+      
+      </div><div style="float: left;width: 33%">	
+        
+          <mat-form-field>
+            <input matInput formControlName="couriertoAddress" placeholder="Courier to Address?">
+          </mat-form-field>
+      
+      </div><div style="float: left;width: 33%">
+        
+          <mat-checkbox formControlName="isHaveEmail">Is Have Email?</mat-checkbox>
+      
+      </div><div style="float: left;width: 66%">	
+        
+          <mat-form-field>
+            <input matInput formControlName="emailAddress" placeholder="Email Address?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+      
+          <mat-checkbox formControlName="isCustomerWillPickup">Is client Will Pickup?</mat-checkbox>
+      
+      </div><div style="float: left;width: 33%">    
+          <mat-form-field>
+            <input matInput formControlName="pickupByPersonName" placeholder="Pickup By Person Name?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">    
+          <mat-form-field>
+            <input matInput formControlName="pickupByPersonPhoneNumber" placeholder="Pickup By Person Phone Number?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">    
+          <mat-form-field>
+            <input matInput formControlName="numberOfCopies" placeholder="Number Of Copies?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">    
+          <mat-form-field>
+            <input matInput formControlName="projectHoldNotes" placeholder="Project Hold Notes?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">    
+          <mat-form-field>
+            <input matInput formControlName="customerData" placeholder="Client Data?">
+          </mat-form-field>
+      </div><div style="float: left;width: 33%">
+          <mat-form-field>
+            <input matInput formControlName="invoice" placeholder="Client Invoice">
+          </mat-form-field>
+      </div>        
+          <button mat-stroked-button color="primary"  type="submit"  >Save</button>
+          <button mat-stroked-button color="primary"  type="button"   (click)="makeReadonly()">Cancel</button>          
+          <button  mat-button type="button" (click)="makeReadonly()" style="position: absolute;top:0;right: 0;">
+              <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+            </button>
+      </form>
+</div>
+</div>
+
+
+  <div *ngIf="projectId && !isEdit">
+    <div style="width: 100%;float: left;" class="boxshadow">
+      <div style="width: 100%;float: left;">
+        <a style="cursor: pointer;" (click)="makeEditable()" >
+          <mat-icon>edit</mat-icon>
+        </a>
+        <!-- <a style="cursor: pointer;float:right" (click)="delete()" >
+          <mat-icon>delete_forever</mat-icon>
+        </a> -->
+      </div>
+
+      <div style="float: left;width: 33%">Project Name: {{project ? project.Title:''}}</div>
+      <div style="float: left;width: 33%">Project Number: {{project ? project.ProjectNumber:''}}</div>
+      <!-- <div style="float: left;width: 33%">Project Status ID: {{project ? project.ProjectStatusID:''}}</div> -->
+      <div style="float: left;width: 33%">Address: {{project ? project.JobAddress:''}}</div>
+      
+      <div style="float: left;width: 33%">Status: {{project ? project.ProjectStatusName:''}}</div>
+      
+      <!-- <div style="float: left;width: 33%">Project Priority ID: {{project ? project.ProjectPriorityID:''}}</div> -->
+      <div style="float: left;width: 33%">Priority: {{project ? project.ProjectPriorityTitle:''}}</div>
+      <div style="float: left;width: 33%">City: {{project ? project.JobCity:''}}</div>
+      
+      <div style="float: left;width: 33%">Plan Name: {{project ? project.PlanName:''}}</div>
+      <div style="float: left;width: 33%">Plan Number: {{project ? project.PlanNumber:''}}</div>
+      <div style="float: left;width: 33%">State: {{project ? project.JobState:''}}</div>
+      
+      <div style="float: left;width: 33%">Start Date: {{project ? project.StartDate:''}}</div>
+      <div style="float: left;width: 33%">Due Date: {{project ? project.DueDate:''}}</div>
+      <div style="float: left;width: 33%">Zip: {{project ? project.JobZipAddress:''}}</div>
+
+      <div style="float: left;width: 33%">DWG FIle Location: {{project ? project.DWGFIleLocation:''}}</div>
+      <!-- <div style="float: left;width: 33%">Customer ID: {{project ? project.CustomerID:''}}</div> -->
+      <div style="float: left;width: 33%">Customer: {{project ? project.CustomerName:''}}</div>
+      <!-- <div style="float: left;width: 33%">Reviewed By ID: {{project ? project.ReviewedByID:''}}</div> -->
+      <div style="float: left;width: 33%">Reviewed By: {{project ? project.ReviewedByName:''}}</div>
+      <!-- <div style="float: left;width: 33%">Project Type ID: {{project ? project.ProjectTypeID:''}}</div> -->
+      <div style="float: left;width: 33%">Project Type: {{project ? project.ProjectTypeName:''}}</div>
+      <div style="float: left;width: 33%">Project Type Notes: {{project ? project.ProjectTypeNotes:''}}</div>
+      <div style="float: left;width: 33%">Is Foundation: {{project ? (project.IsFoundation? 'yes':'no'):''}}</div>
+      <!-- <div style="float: left;width: 33%">FoundationTypeID: {{project ? project.FoundationTypeID:''}}</div> -->
+      <div style="float: left;width: 33%">Foundation Type Name: {{project ? project.FoundationTypeName:''}}</div>
+      <div style="float: left;width: 33%">Crawl Space Joist: {{project ? project.CrawlSpaceJoist:''}}</div>
+      <div style="float: left;width: 33%">Is Have Soils Report: {{project ? (project.IsHaveSoilsReport? 'yes': 'no'):''}}</div>
+      <div style="float: left;width: 33%">How/WhenSending: {{project ? project.How_WhenSending:''}}</div>
+      <div style="float: left;width: 33%">Is Framing: {{project ? (project.IsFraming? 'yes':'no'):''}}</div>
+      <div style="float: left;width: 33%">Type Of Floor Joist: {{project ? project.TypeOfFloorJoist:''}}</div>
+      <div style="float: left;width: 33%">Max Floor Joist Spacing: {{project ? project.MaxFloorJoistSpacing:''}}</div>
+      <div style="float: left;width: 33%">Type Of Ceiling Joist: {{project ? project.TypeOfCeilingJoist:''}}</div>
+      <div style="float: left;width: 33%">Roofing Materials: {{project ? project.RoofingMaterials:''}}</div>
+      <div style="float: left;width: 33%">Weight Of Roofing Materials: {{project ? project.WeightOfRoofingMaterials:''}}</div>
+      <div style="float: left;width: 33%">Project Material Notes: {{project ? project.ProjectMaterialNotes:''}}</div>
+      <div style="float: left;width: 33%">Is Have Courier Plans: {{project ? (project.IsHaveCourierPlans? 'yes':'no'):''}}</div>
+      <div style="float: left;width: 33%">Courier to Whom: {{project ? project.CouriertoWhom:''}}</div>
+      <div style="float: left;width: 33%">Courier to Address: {{project ? project.CouriertoAddress:''}}</div>
+      <div style="float: left;width: 33%">Is Have Email: {{project ? (project.IsHaveEmail? 'yes':'no'):''}}</div>
+      <div style="float: left;width: 33%">Email Address: {{project ? project.EmailAddress:''}}</div>
+      <div style="float: left;width: 33%">Is Customer Will Pickup: {{project ? (project.IsCustomerWillPickup ? 'yes':'no'):''}}</div>
+      <div style="float: left;width: 33%">Pickup By PersonName: {{project ? project.PickupByPersonName:''}}</div>
+      <div style="float: left;width: 33%">Pickup By Person Phone Number: {{project ? project.PickupByPersonPhoneNumber:''}}</div>
+      <div style="float: left;width: 33%">Number Of Copies: {{project ? project.NumberOfCopies:''}}</div>
+      <div style="float: left;width: 33%">Project Hold Notes: {{project ? project.ProjectHoldNotes:''}}</div>
+      <!-- <div style="float: left;width: 33%">Customer Data: {{project ? project.CustomerData:''}}</div> -->
+      <div style="float: left;width: 33%">Invoice: {{project ? project.Invoice:''}}</div>
+    </div>
+  </div>
+
+  <div *ngIf="clientId && !isEdit">
+      <div style="width: 100%;float: left;" class="boxshadow">
+        <div style="width: 100%;float: left;">
+            <a  style="cursor: pointer;" (click)="makeEditable()" >
+              <mat-icon>edit</mat-icon>
+            </a>
+            <!-- <a style="cursor: pointer;float:right"  (click)="delete()" >
+              <mat-icon>delete_forever</mat-icon>
+            </a> -->
+        </div>
+        <div style="float: left;width:33%">
+          Client Name: {{customer ?  customer.Title : ''}}
+        </div>
+        <div style="float: left;width:33%">
+            Key Person: {{customer ? customer.KeyPerson : ''}}
+        </div>
+        <div style="float: left;width:33%">
+          Address: {{customer ? customer.Address : ''}}
+        </div>
+        
+        <div style="float: left;width:33%">
+            Phone: {{customer ? customer.Phone : ''}}
+        </div>
+        <div style="float: left;width:33%">
+            Email: {{customer ? customer.Email : ''}}
+        </div>
+        <div style="float: left;width:33%">
+          City: {{customer ? customer.City : ''}}
+      </div>
+      <div style="float: left;width:66%">  &nbsp;      
+    </div>
+      <div style="float: left;width:33%">
+          State: {{customer ? customer.State : ''}}
+      </div>
+      <div style="float: left;width:66%">     &nbsp;   
+      </div>
+      <div style="float: left;width:33%">
+          Zip: {{customer ? customer.Zip : ''}}
+      </div>
+      </div>
+    </div>
+
+    <div *ngIf="clientId && isEdit">
+        <div style="width: 100%;float: left;" class="boxshadow">
+
+            <form [formGroup]="clientform" novalidate (ngSubmit)="submitClient(clientform)"  style="position: relative;;font-size: 13px;">
+                <h1 mat-dialog-title>Edit Client</h1>  
+                  <div style="float: left;width:50%">
+                <mat-form-field>
+                    <input matInput formControlName="title" placeholder="Company">
+                  </mat-form-field>
+                
+                </div><div style="float: left;width:48%">
+                  <mat-form-field>
+                    <input matInput formControlName="keyperson" placeholder="Key Person">
+                  </mat-form-field>
+                </div><div style="float: left;width:25%">
+                  <mat-form-field>
+                    <input matInput formControlName="address" placeholder="Address">
+                  </mat-form-field>
+                </div>
+                <div style="float: left;width:25%">
+                  <mat-form-field>
+                    <input matInput formControlName="city" placeholder="city">
+                  </mat-form-field>
+                </div><div style="float: left;width:25%">              
+                  <mat-form-field>
+                    <mat-select placeholder="State" formControlName="selectedstate">
+                      <mat-option *ngFor="let state of states" [value]="state.value">
+                        {{ state.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                
+                <div style="float: left;width:25%">
+                  <mat-form-field>
+                    <input matInput formControlName="zip" placeholder="zipcode">
+                  </mat-form-field>
+                </div><div style="float: left;width:33%">
+                  <mat-form-field>
+                    <input matInput formControlName="phone" placeholder="Phone">
+                  </mat-form-field>
+                </div><div style="float: left;width:33%">
+                  <mat-form-field>
+                    <input matInput formControlName="email" placeholder="Email">
+                  </mat-form-field>
+              </div>
+                  
+              
+              
+                  <button mat-stroked-button color="primary"  type="submit"  >Save</button>
+                  <button mat-stroked-button color="primary"  type="button"  (click)="makeReadonly()">Cancel</button>
+                  <button  mat-button type="button" (click)="makeReadonly()" style="position: absolute;top:0;right: 0;">
+                      <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+                    </button>
+              </form>
+
+
+        </div>
+      </div>
+
+    <div *ngIf="employeeId && !isEdit">
+      <div style="width: 100%;float: left;" class="boxshadow">
+          <div style="width: 100%;float: left;">
+              <a style="cursor: pointer;"  (click)="makeEditable()" >
+                  <mat-icon>edit</mat-icon>
+                </a>
+                <!-- <a style="cursor: pointer;float:right"  (click)="delete()" >
+                  <mat-icon>delete_forever</mat-icon>
+                </a> -->
+          </div>
+          <div style="float: left;width:33%">
+              First Name: {{employee ? employee.FirstName:''}}
+          </div>
+          <div style="float: left;width:33%">
+              Last Name: {{employee ? employee.LastName:''}}
+          </div>
+          <div style="float: left;width:33%">
+            Address: {{employee ? employee.Address:''}}
+        </div>
+          <div style="float: left;width:33%">
+              Designation: {{employee ? employee.Designation:''}}
+          </div>
+          <div style="float: left;width:33%">
+              Phone: {{employee ? employee.Phone:''}}
+          </div>
+          <div style="float: left;width:33%">
+            City: {{employee ? employee.City:''}}
+        </div>
+        
+          <div style="float: left;width:33%">
+              Email: {{employee ? employee.Email:''}}
+          </div>
+          
+          <div style="float: left;width:33%">
+              Has Review Authorization: {{employee ? (employee.HasReviewAuthorization ? 'yes' : 'no'): ''}}
+          </div>
+          <div style="float: left;width:33%">
+            State: {{employee ? employee.State:''}}
+        </div>
+        <div style="float: left;width:66%">&nbsp;</div>
+            <div style="float: left;width:33%">
+                Zip: {{employee ? employee.Zip:''}}
+            </div>
+        </div>
+      </div>
+
+      <div *ngIf="employeeId && isEdit">
+          <div style="width: 100%;float: left;" class="boxshadow">
+              <form [formGroup]="employeeform" novalidate (ngSubmit)="submitUser(employeeform)" style="position: relative;;font-size: 13px;">
+                  <h1>
+                    Edit User
+                  </h1>
+                  <div style="float: left;width:33%">
+                    <mat-form-field>
+                        <input matInput formControlName="firstname" placeholder="First Name">
+                    </mat-form-field>
+                  </div>
+
+                    <div style="float: left;width:33%">
+                    <mat-form-field>
+                          <input matInput formControlName="lastname" placeholder="Last Name">
+                    </mat-form-field>
+                  </div>
+                    <div style="float: left;width:33%">
+                    <mat-form-field>
+                        <mat-select placeholder="Designation" formControlName="designation">
+                          <mat-option *ngFor="let designation of Designations" [value]="designation.value">
+                            {{ designation.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                      
+                    <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="address" placeholder="Address">
+                    </mat-form-field>  
+                  </div>
+                    <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="city" placeholder="City">
+                    </mat-form-field>
+                  </div>                    
+                    <div style="float: left;width:25%">
+                        <mat-form-field>
+                          <mat-select placeholder="State" formControlName="selectedstate">
+                            <mat-option *ngFor="let state of states" [value]="state.value">
+                              {{ state.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>                    
+                      <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="zip" placeholder="Zip">
+                    </mat-form-field>    
+                </div>
+
+                <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <input matInput formControlName="phone" placeholder="Phone">
+                    </mat-form-field>
+                  </div>
+                    <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <input matInput formControlName="email" placeholder="Email">
+                    </mat-form-field>
+                  </div>
+                    <!-- HasReviewAuthorization
+                
+                    IsInManagement
+                
+                    IsInDirectorPanel -->
+                
+                    <button mat-stroked-button color="primary"  type="submit" >Save</button>
+                    <button mat-stroked-button color="primary"  type="button" (click)="makeReadonly()" >Cancel</button>
+                    <button  mat-button type="button" (click)="makeReadonly()" style="position: absolute;top:0;right: 0;">
+                        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+                      </button>
+                </form>
+            </div>
+          </div>
+
+      <div *ngIf="proposalId && !isEdit">
+          <div style="width: 100%;float: left;" class="boxshadow">
+            <div style="width: 100%;float: left;">
+              <a style="cursor: pointer;"  (click)="makeEditable()" >
+                <mat-icon>edit</mat-icon>
+              </a>  
+              <!-- <a style="cursor: pointer;float:right"  (click)="delete()" >
+                <mat-icon>delete_forever</mat-icon>
+              </a>             -->
+            </div>
+            <div style="float: left;width:33%">
+              Proposal Name: {{ proposal? proposal.Name:''}}
+            </div>            
+            
+            <div style="float: left;width:33%">
+              Proposal Details: {{proposal?  proposal.Details:''}}
+            </div>
+            <div style="float: left;width:33%">
+              Address: {{proposal?  proposal.Address :''}}
+            </div>                      
+          
+
+            <div style="float: left;width:33%">
+              Initial Contract Date: {{ proposal? proposal.InitialContractDate:''}}
+            </div>            
+         
+            <div style="float: left;width:33%">
+              Proposal Type: {{ proposal? proposal.ProposalType:''}}
+            </div>
+            <div style="float: left;width:33%">
+              City: {{ proposal? proposal.City:''}}
+            </div> <div style="float: left;width:33%">
+              Submittal Date: {{proposal?  proposal.SubmittalDate : ''}}
+          </div>           
+            <div style="float: left;width:33%">
+                Daily Type: {{proposal?  proposal.Daily : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              State: {{proposal?  proposal.State : ''}}
+          </div>
+          <div style="float: left;width:33%">
+              Revision Date: {{proposal?  proposal.RevisionDate:''}}
+            </div>
+                      
+            <div style="float: left;width:33%">
+              Project Type: {{proposal?  proposal.ProjectType:''}}
+            </div>
+            <div style="float: left;width:33%">
+              Zip: {{proposal?  proposal.Zip : ''}}
+          </div>
+          
+            <div style="float: left;width:33%">
+              ProjectOtherTypeValue: {{ proposal? proposal.ProjectOtherTypeValue:''}}
+            </div>
+            
+            <div style="float: left;width:33%">
+                Foundation Type: {{proposal?  proposal.FoundationTypeValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              Foundation Slab Type: {{proposal?  proposal.FoundationSlabTypeValue:''}}
+            </div>
+         
+            <div style="float: left;width:33%">
+              Foundation Pier Type: {{ proposal? proposal.FoundationPierTypeValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Foundation Pier Remiedial Type: {{proposal?  proposal.FoundationPierRemiedialTypeValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              FoundationPierRemiedialOtherTypeValue: {{proposal?  proposal.FoundationPierRemiedialOtherTypeValue:''}}
+            </div>
+          
+            <div style="float: left;width:33%">
+              Foundation Other Type: {{ proposal? proposal.FoundationOtherTypeValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Frame Type: {{proposal?  proposal.FrameTypeValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              Frame Residential: {{proposal?  proposal.FrameResidentialValue:''}}
+            </div>
+          
+            <div style="float: left;width:33%">
+              Frame Residential Other: {{ proposal? proposal.FrameResidentialOtherValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Frame Exterior: {{proposal?  proposal.FrameExteriorValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              Frame Exterior Other Value: {{proposal?  proposal.FrameExteriorOtherValue:''}}
+            </div>
+          
+            <div style="float: left;width:33%">
+              Frame Roof Type Value: {{ proposal? proposal.FrameRoofTypeValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Frame Roof Type Other Value: {{proposal?  proposal.FrameRoofTypeOtherValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              Retaining Wall: {{proposal?  proposal.RetainingWallValue:''}}
+            </div>
+         
+            <div style="float: left;width:33%">
+              Retaining Wall Type: {{ proposal? proposal.RetainingWallTypeValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Retaining Wall value: {{proposal?  proposal.RetainingWallTypeWallValue : ''}}
+            </div>
+            <div style="float: left;width:33%">
+              Retaining Wall Other Value: {{proposal?  proposal.RetainingWallTypeWallOtherValue:''}}
+            </div>
+        
+            <div style="float: left;width:33%">
+              Pool Value: {{ proposal? proposal.PoolValue:''}}
+            </div>
+            <div style="float: left;width:33%">
+                Pool Compnay Design Value: {{proposal?  proposal.PoolCompnayDesignValue : ''}}
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="proposalId && isEdit">
+          <div style="width: 100%;float: left;" class="boxshadow">            
+              
+              <form [formGroup]="proposalform" novalidate (ngSubmit)="submitProposal(proposalform)" style="position: relative;;font-size: 13px;">
+                  <h1 mat-dialog-title>
+                    Edit Proposal 
+                  </h1>
+                  <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <mat-select placeholder="Select Client" formControlName="selectedClient">
+                        <mat-option *ngFor="let client of clients" [value]="client.value">
+                          {{ client.viewValue }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>                                    
+                  </div>
+                  <div  style="float: left;width:17%;cursor: pointer;"><a (click)="openClientAddDialog()" >new client</a></div>
+
+                  <!-- <input name="ID" formControlName="ID" type="hidden" value="{{proposal.ID}}"> -->
+
+                  <div style="float: left;width:48%">
+                    <mat-form-field>
+                      <input matInput formControlName="name" placeholder="Name">
+                    </mat-form-field>
+                  </div>  
+                
+                  <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="address" placeholder="address">
+                    </mat-form-field>
+                  </div>
+
+                  <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="city" placeholder="city">
+                    </mat-form-field>
+                  </div>
+                  <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <mat-select placeholder="State" formControlName="selectedstate">
+                        <mat-option *ngFor="let state of states" [value]="state.value">
+                          {{ state.viewValue }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div style="float: left;width:25%">
+                    <mat-form-field>
+                      <input matInput formControlName="zip" placeholder="Zipcode">              
+                    </mat-form-field>
+                  </div>
+
+                  
+                  <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="initialContractDatePicker" placeholder="Choose initial date" formControlName="initialContractDatePicker" >
+                      <mat-datepicker-toggle matSuffix [for]="initialContractDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #initialContractDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                  <div style="float: left;width:33%">
+                        <mat-form-field>
+                      <input matInput [matDatepicker]="submittalDatePicker" placeholder="Choose submital date" formControlName="submittalDatePicker">
+                      <mat-datepicker-toggle matSuffix [for]="submittalDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #submittalDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                
+                  <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="revisionDatePicker" placeholder="Choose revisional date"  formControlName="revisionDatePicker">
+                      <mat-datepicker-toggle matSuffix [for]="revisionDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #revisionDatePicker></mat-datepicker>
+                    </mat-form-field>     
+                  </div>
+
+                  <div style="float: left;width:100%">
+                      <mat-form-field>
+                        <textarea matInput formControlName="details" placeholder="Proposal details" ></textarea>
+                      </mat-form-field>
+                  </div>
+                  <div style="float: left;width:33%">
+                    <mat-form-field>
+                      <mat-select placeholder="Select proposal type"
+                       (selectionChange)="SelectProposalType($event)" formControlName="proposalType"  [(value)]="selectedProposalType">
+                        <mat-option value="daily"  >Daily</mat-option>
+                        <mat-option value="project" >Project</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                
+                      <div *ngIf="selectedProposalType == 'daily'" >
+                          <div style="float: left;width:33%">
+                      <mat-form-field >
+                        <mat-select placeholder="Select daily type" formControlName="selectDailyType">
+                          <mat-option value="addition">Addition</mat-option>
+                          <mat-option value="remodel">Remodel</mat-option>
+                          <mat-option value="repair">Repair</mat-option>
+                          <mat-option value="forensic">Forensic</mat-option>          
+                        </mat-select>
+                      </mat-form-field>
+                      </div>
+                      </div>
+                        
+                      <div  *ngIf="selectedProposalType == 'project'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select project type"
+                           formControlName="selectProjectType" (selectionChange)="SelectProjectType($event)">
+                            <mat-option value="foundation">Foundation</mat-option>
+                            <mat-option value="frame">Frame</mat-option>
+                            <mat-option value="retainingWall">Retaining wall</mat-option>
+                            <mat-option value="pool">Pool</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                
+                      <div  *ngIf="selectedProjectType == 'foundation'"   >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select Foundation type"
+                           formControlName="selectFoundationType"  (selectionChange)="SelectFoundationType($event)">
+                            <mat-option value="pierandbeam">Pier and Beam</mat-option>
+                            <mat-option value="slab">Slab</mat-option>
+                            <mat-option value="piers">Piers</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+
+                      
+                
+                      <div  *ngIf="selectedFoundationType == 'slab'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select slab type" 
+                          formControlName="selectSlabType" >
+                            <mat-option value="postTension">Post Tension</mat-option>
+                            <mat-option value="structural">Structural</mat-option>
+                            <mat-option value="conventional">Conventional</mat-option>
+                            <mat-option value="capPours ">Cap Pours </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                
+                      <div  *ngIf="selectedFoundationType == 'piers'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select piers type" 
+                          formControlName="selectPiersType"  (selectionChange)="SelectPiersType($event)">
+                            <mat-option value="concretereinforced ">Concrete reinforced </mat-option>
+                            <mat-option value="helical">Helical</mat-option>
+                            <mat-option value="remedial">Remedial</mat-option>            
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                
+                      <div  *ngIf="selectedPiersType == 'remedial'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select remedial type" 
+                          formControlName="selectRemedialType" >
+                            <mat-option value="steel ">Steel</mat-option>
+                            <mat-option value="hybrid">Hybrid</mat-option>
+                            <mat-option value="other">Other</mat-option>            
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                
+                
+                      <div  *ngIf="selectedProjectType == 'frame'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select placeholder="Select Frame type" 
+                          formControlName="selectFrameType"  (selectionChange)="SelectFrameType($event)">
+                            <mat-option value="residential">Residential</mat-option>
+                            <mat-option value="commercial">Commercial</mat-option>
+                            <mat-option value="exteriorfinish">Exterior finish</mat-option>
+                            <mat-option value="rooftype">Roof type </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      
+                
+                
+                      <div  *ngIf="selectedFrameType == 'residential'" >
+                          <div style="float: left;width:33%">
+                        <mat-form-field>
+                          <mat-select 
+                          placeholder="Select residential type" 
+                          formControlName="selectResidentialType" 
+                          >
+                            <mat-option value="conventionalstickframe">Conventional stick frame</mat-option>
+                            <mat-option value="trussopenweb">Truss / Open Web</mat-option>
+                            <mat-option value="compositewoods">Composite Woods / I-Joists</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                
+                      <div  *ngIf="selectedFrameType == 'exteriorfinish'" >
+                          <div style="float: left;width:33%">                        
+                        <mat-form-field>
+                          <mat-select placeholder="Select Exterior Finish type" 
+                          formControlName="selectExteriorFinish"
+                          >
+                            <mat-option value="siding">Siding</mat-option>
+                            <mat-option value="masonry">Masonry</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                
+                
+                      <div  *ngIf="selectedFrameType == 'rooftype'" >
+                          <div style="float: left;width:33%">                        
+                        <mat-form-field>
+                          <mat-select placeholder="Select Roof type" 
+                          formControlName="selectRoofType"
+                          >
+                            <mat-option value="composition">Composition</mat-option>
+                            <mat-option value="tile">Tile</mat-option>
+                            <mat-option value="slate">Slate</mat-option>
+                            <mat-option value="metal">Metal</mat-option>
+                            <mat-option value="other">Other</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                
+                      <div  *ngIf="selectedProjectType == 'retainingWall'" >
+                          <div style="float: left;width:33%">
+                        
+                        <mat-form-field>
+                          <mat-select placeholder="Select Retaining Wall" 
+                          formControlName="selectRetainingWallType"
+                          (selectionChange)="SelectRetainingWallType($event)">
+                            <mat-option value="type">Type</mat-option>            
+                          </mat-select>
+                        </mat-form-field>
+                        </div>
+                        
+                        <div  *ngIf="selectedRetainingWallType == 'type'" >
+                            <div style="float: left;width:33%">
+                          
+                          <mat-form-field>
+                            <mat-select placeholder="Type" 
+                            formControlName="selectRetainingWallTypeType"
+                            (selectionChange)="SelectRetainingWallTypeType($event)">
+                              <mat-option value="concreteFooting">Concrete Footing</mat-option>
+                              <mat-option value="wall">Wall</mat-option>
+                            </mat-select>
+                          </mat-form-field></div>
+                
+                          <div  *ngIf="selectedRetainingWallTypeType == 'wall'" >
+                          <div style="float: left;width:33%">
+                            
+                            <mat-form-field>
+                              <mat-select placeholder="Wall" formControlName="selectRetainingWallTypeWall"
+                              >
+                                <mat-option value="concretereinforced">Concrete reinforced</mat-option>
+                                <mat-option value="masonry">Masonry</mat-option>
+                                <mat-option value="other">Other</mat-option>
+                              </mat-select>
+                            </mat-form-field> </div>
+                          </div>
+                        </div>          
+                      </div>
+                
+                      <div  *ngIf="selectedProjectType == 'pool'" >
+                          <div style="float: left;width:33%">                        
+                        <mat-form-field>
+                          <mat-select placeholder="Select Pool Type" formControlName="selectPoolType"
+                          (selectionChange)="SelectPoolType($event)">
+                            <mat-option value="companydesigning">Company Designing For (Contractor’s Installer)</mat-option>
+                          </mat-select>
+                        </mat-form-field></div>
+                
+                        <div  *ngIf="selectedPoolType == 'companydesigning'" >
+                            <div style="float: left;width:33%">                          
+                          <mat-form-field>
+                            <mat-select 
+                            placeholder="Company Designing For (Contractor’s Installer)"
+                             formControlName="selectCompanydesigningType"
+                            >
+                              <mat-option value="piers">Piers</mat-option>
+                              <mat-option value="structuralapron">Structural Apron/Deck?</mat-option>
+                              <mat-option value="observations">Observations? </mat-option>
+                            </mat-select>
+                          </mat-form-field> </div>
+                        </div>
+                      </div>
+                
+                      <div  *ngIf="selectedProjectType == 'other'" >
+                          <div style="float: left;width:33%">                        
+                        <mat-form-field>
+                          <input matInput formControlName="other" placeholder="other value">
+                        </mat-form-field> </div>
+                      </div>
+                
+                      
+                
+                  
+                  
+                    <button mat-stroked-button color="primary" type="submit"  >Save</button>
+                    <button mat-stroked-button color="primary" type="button" (click)="makeReadonly()" >Cancel</button>
+                    <button mat-button type="button" (click)="makeReadonly()" style="position: absolute;top:0;right: 0;">
+                      <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+                    </button>
+                </form>
+          </div>
+        </div>
+</div>
+
+<error-detail [opened]="openDetial" [selectedTask] = "taskSelected"   (onOpened)="onOpenedTriggered($event)"></error-detail>

@@ -1,0 +1,118 @@
+<div class="error-detail-container mat-elevation-z10" style="overflow: auto" [class.open]="opened">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span fxFlex></span>
+    <button mat-icon-button (click)="onCloseTriggered()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="error-detail-main">
+    <div class="title">Task Detail</div>
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Task:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.TaskName}}</span>
+      </div>
+    </div>
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Deadline:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.Deadline  | date: 'dd/MM/yyyy'}}</span>
+      </div>
+    </div>
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Assigned to:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.DesignByEmployee}}</span>
+      </div>
+    </div>
+
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Status:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.TaskStatus}}</span>
+      </div>
+    </div>
+
+    <!-- <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Short Description:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.ShortDescription}}</span>
+      </div>
+    </div>
+
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Full Description:</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.FullDescription}}</span>
+      </div>
+    </div> -->
+
+
+    <!-- <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>New Review Notes</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.NewReviewNotes}}</span>
+      </div>
+    </div>
+
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Review Notes</span>
+      </div>
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.ReviewNotes}}</span>
+      </div>
+    </div> -->
+
+    <div class="error-detail-row">
+      <div class="start-wrapper" fxLayout="row" fxLayoutAlign="start center" >
+        <span>Notes:</span>
+      </div>
+      <!-- <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span>{{detailedTask.ReviewNotes}}</span>
+      </div> -->
+    </div>
+
+    <div class="error-detail-row">
+      <div class="content-wrapper" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <form [formGroup]="noteform" novalidate (ngSubmit)="submitnote(noteform)" style="position: relative;font-size: 13px;width:95%">                
+          <mat-form-field>
+            <textarea matInput formControlName="txtnote" placeholder="new note" ></textarea>
+          </mat-form-field>    
+          
+          <button mat-icon-button color="primary" type="submit"  >
+           <mat-icon>add_box</mat-icon>  
+          </button>
+
+          </form>
+      </div>
+
+    </div>
+
+    <div class="error-detail-row"  >
+      <div class="error-detail-row" *ngFor="let note of notesOfThisTask">
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+            {{note.Comment}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp; {{defaultuser}}&nbsp;&nbsp;&nbsp;&nbsp; || {{note.CreatedDate | date: 'dd/MM/yyyy'}}
+          </div>
+      </div>
+      <br/>
+      <br/>
+      <button *ngIf="numberOfNotesOfThisTask > 3"  mat-stroked-button (click)="seeMoreLess($event)">see more</button>
+    </div>
+  </div>
+</div>

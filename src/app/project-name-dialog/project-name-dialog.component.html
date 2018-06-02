@@ -1,0 +1,211 @@
+<form [formGroup]="form" novalidate (ngSubmit)="submit(form)" style="position: relative;">
+  <h1 mat-dialog-title>Add project</h1>
+  <mat-dialog-content>
+      <mat-form-field>
+          <mat-select placeholder="Client" formControlName="customerSelect">
+            <mat-option *ngFor="let customer of Customers" [value]="customer.value">
+              {{ customer.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="projectname" placeholder="Project Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="projectNumber" placeholder="Project Number">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Project Status" formControlName="projectStatusSelect" >
+        <mat-option *ngFor="let status of projectStatuses" [value]="status.value">
+          {{ status.viewValue  }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Project Priority" formControlName="projectPrioritySelect">
+        <mat-option *ngFor="let priority of projectpriorities" [value]="priority.value">
+          {{ priority.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="planName" placeholder="Plan Name">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput formControlName="planNumber" placeholder="Plan Number">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerStart" placeholder="Start Date" formControlName="pickerStart" >
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerEnd" placeholder="Due Date" formControlName="pickerEnd" >
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput formControlName="jobAddress" placeholder="Address">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="city" placeholder="City">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="State" formControlName="projectStateSelect">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+          {{ state.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="jobZipAddress" placeholder="ZipCode">
+    </mat-form-field>
+
+  
+    <!-- <label for="singleFile">Upload file</label>
+    <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
+    <br>
+    
+    <mat-file-upload-queue #fileUploadQueue
+        [fileAlias]="'file'"
+        [httpUrl]="'http://producteevlikesite_local/api/UploadFileApi'">    
+        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+    </mat-file-upload-queue> -->
+
+
+
+
+    <mat-form-field>
+      <mat-select placeholder="Project Reviewed By" formControlName="reviewdBySelect">
+        <mat-option *ngFor="let employee of employees" [value]="employee.value">
+          {{ employee.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-select placeholder="Project Type" formControlName="projectTypesSelect">
+        <mat-option *ngFor="let type of ProjectTypes" [value]="type.value">
+          {{ type.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="projectTypeNotes" placeholder="Project Type Notes">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isFoundation">Is Foundation?</mat-checkbox>
+
+     <mat-form-field>
+      <mat-select placeholder="Foundation Type" formControlName="foundationTypeSelect">
+        <mat-option *ngFor="let type of FoundationTypes" [value]="type.value">
+          {{ type.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="CrawlSpaceJoist" placeholder="Crawl Space Joist">
+    </mat-form-field>
+
+
+    <mat-checkbox formControlName="isHaveSoilsReport">Is Have Soils Report?</mat-checkbox>
+
+    <mat-form-field>
+      <input matInput formControlName="How_WhenSending" placeholder="How/When Send?">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isFraming">Is Framing?</mat-checkbox>
+    
+    <mat-form-field>
+      <input matInput formControlName="typeOfFloorJoist" placeholder="Type of Floor Joist?">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput formControlName="maxFloorJoistSpacing" placeholder="Max Floor Joist Spacing?">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="typeOfCeilingJoist" placeholder="Type Of Ceiling Joist?">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="roofingMaterials" placeholder="Roofing Materials?">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="weightOfRoofingMaterials" placeholder="Weight Of Roofing Materials?">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="projectMaterialNotes" placeholder="Project Material Notes?">
+    </mat-form-field>
+
+
+    <mat-checkbox formControlName="isHaveCourierPlans">Is Have Courier Plans?</mat-checkbox>
+
+    <mat-form-field>
+      <input matInput formControlName="couriertoWhom" placeholder="Courier to Whom?">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="couriertoAddress" placeholder="Courier to Address?">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isHaveEmail">Is Have Email?</mat-checkbox>
+    <mat-form-field>
+      <input matInput formControlName="emailAddress" placeholder="Email Address?">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isCustomerWillPickup">Is client Will Pickup?</mat-checkbox>
+    
+    <mat-form-field>
+      <input matInput formControlName="pickupByPersonName" placeholder="Pickup By Person Name?">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput formControlName="pickupByPersonPhoneNumber" placeholder="Pickup By Person Phone Number?">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput formControlName="numberOfCopies" placeholder="Number Of Copies?">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput formControlName="projectHoldNotes" placeholder="Project Hold Notes?">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput formControlName="customerData" placeholder="Client Data?">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="invoice" placeholder="Client Invoice">
+    </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit"  >Add</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-button type="button" mat-dialog-close style="position: absolute;top:0;right: 0;">
+        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+      </button>
+  </mat-dialog-actions>
+
+  
+  
+  
+
+
+</form>

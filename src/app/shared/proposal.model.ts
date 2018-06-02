@@ -1,0 +1,36 @@
+export class Proposal {
+    ID:number;
+    Name:string;
+    Address:string;    
+    City:string;
+    State:string;
+    Zip:string;
+    Details:string;
+    InitialContractDate:Date;
+    SubmittalDate:Date;
+    RevisionDate:Date;
+    ProposalType:string;
+    DailyType: string; 
+    ProjectType: string; 
+    ProjectOtherTypeValue: string; 
+    FoundationTypeValue: string; 
+    FoundationSlabTypeValue: string; 
+    FoundationPierTypeValue: string; 
+    FoundationPierRemiedialTypeValue: string; 
+    FoundationPierRemiedialOtherTypeValue: string; 
+    FoundationOtherTypeValue: string; 
+    FrameTypeValue: string; 
+    FrameResidentialValue: string; 
+    FrameResidentialOtherValue: string; 
+    FrameExteriorValue: string; 
+    FrameExteriorOtherValue: string; 
+    FrameRoofTypeValue: string; 
+    FrameRoofTypeOtherValue: string; 
+    RetainingWallValue: string; 
+    RetainingWallTypeValue: string; 
+    RetainingWallTypeWallValue: string; 
+    RetainingWallTypeWallOtherValue: string; 
+    PoolValue: string; 
+    PoolCompanyDesignValue : string; 
+    ClientID : number;
+}

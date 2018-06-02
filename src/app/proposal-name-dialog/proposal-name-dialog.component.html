@@ -1,0 +1,278 @@
+<form [formGroup]="form" novalidate (ngSubmit)="submit(form)" style="position: relative;" id="proposalform">
+  <h1 mat-dialog-title>
+    Add Proposal 
+  </h1>
+  <mat-dialog-content>
+    <!-- <mat-form-field>
+        <input matInput formControlName="ID" placeholder="" hidden>
+    </mat-form-field> -->
+
+    <mat-form-field>
+      <mat-select placeholder="Client" formControlName="selectedClient">
+        <mat-option *ngFor="let client of clients" [value]="client.value">
+          {{ client.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <a style="cursor: pointer;" (click)="openClientAddDialog()" >Create new client</a>
+
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="address" placeholder="Address">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="city" placeholder="City">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="State" formControlName="selectedstate">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+          {{ state.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="zip" placeholder="Zipcode">
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput formControlName="details" placeholder="Proposal details" ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="initialContractDatePicker" placeholder="Initial date" formControlName="initialContractDatePicker" >
+      <mat-datepicker-toggle matSuffix [for]="initialContractDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #initialContractDatePicker></mat-datepicker>
+    </mat-form-field>
+
+        <mat-form-field>
+      <input matInput [matDatepicker]="submittalDatePicker" placeholder="Submital date" formControlName="submittalDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="submittalDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #submittalDatePicker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="revisionDatePicker" placeholder="Revisional date"  formControlName="revisionDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="revisionDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #revisionDatePicker></mat-datepicker>
+    </mat-form-field>     
+
+    <mat-form-field>
+      <mat-select placeholder="Proposal type"
+       (selectionChange)="SelectProposalType($event)" formControlName="proposalType">
+        <mat-option value="daily"  >Daily</mat-option>
+        <mat-option value="project" >Project</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+      <div class="paddingleft20"  *ngIf="selectedProposalType == 'daily'" >
+      <mat-form-field >
+        <mat-select placeholder="Daily type" formControlName="selectDailyType">
+          <mat-option value="addition">Addition</mat-option>
+          <mat-option value="remodel">Remodel</mat-option>
+          <mat-option value="repair">Repair</mat-option>
+          <mat-option value="forensic">Forensic</mat-option>          
+        </mat-select>
+      </mat-form-field>
+      </div>
+        
+      <div class="paddingleft20" *ngIf="selectedProposalType == 'project'" >
+        <mat-form-field>
+          <mat-select placeholder="Project type"
+           formControlName="selectProjectType" (selectionChange)="SelectProjectType($event)">
+            <mat-option value="foundation">Foundation</mat-option>
+            <mat-option value="frame">Frame</mat-option>
+            <mat-option value="retainingWall">Retaining wall</mat-option>
+            <mat-option value="pool">Pool</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedProjectType == 'foundation'"   >
+        <mat-form-field>
+          <mat-select placeholder="Foundation type"
+           formControlName="selectFoundationType"  (selectionChange)="SelectFoundationType($event)">
+            <mat-option value="pierandbeam">Pier and Beam</mat-option>
+            <mat-option value="slab">Slab</mat-option>
+            <mat-option value="piers">Piers</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+
+      <div class="paddingleft20" *ngIf="selectedFoundationType == 'slab'" >
+        <mat-form-field>
+          <mat-select placeholder="Slab type" 
+          formControlName="selectSlabType" >
+            <mat-option value="postTension">Post Tension</mat-option>
+            <mat-option value="structural">Structural</mat-option>
+            <mat-option value="conventional">Conventional</mat-option>
+            <mat-option value="capPours ">Cap Pours </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedFoundationType == 'piers'" >
+        <mat-form-field>
+          <mat-select placeholder="Piers type" 
+          formControlName="selectPiersType"  (selectionChange)="SelectPiersType($event)">
+            <mat-option value="concretereinforced ">Concrete reinforced </mat-option>
+            <mat-option value="helical">Helical</mat-option>
+            <mat-option value="remedial">Remedial</mat-option>            
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedPiersType == 'remedial'" >
+        <mat-form-field>
+          <mat-select placeholder="Remedial type" 
+          formControlName="selectRemedialType" >
+            <mat-option value="steel ">Steel</mat-option>
+            <mat-option value="hybrid">Hybrid</mat-option>
+            <mat-option value="other">Other</mat-option>            
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+      <div class="paddingleft20" *ngIf="selectedProjectType == 'frame'" >
+        <mat-form-field>
+          <mat-select placeholder="Frame type" 
+          formControlName="selectFrameType"  (selectionChange)="SelectFrameType($event)">
+            <mat-option value="residential">Residential</mat-option>
+            <mat-option value="commercial">Commercial</mat-option>
+            <mat-option value="exteriorfinish">Exterior finish</mat-option>
+            <mat-option value="rooftype">Roof type </mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+
+
+      <div class="paddingleft20" *ngIf="selectedFrameType == 'residential'" >
+        <mat-form-field>
+          <mat-select 
+          placeholder="Residential type" 
+          formControlName="selectResidentialType" 
+          >
+            <mat-option value="conventionalstickframe">Conventional stick frame</mat-option>
+            <mat-option value="trussopenweb">Truss / Open Web</mat-option>
+            <mat-option value="compositewoods">Composite Woods / I-Joists</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedFrameType == 'exteriorfinish'" >
+        <mat-form-field>
+          <mat-select placeholder="Exterior Finish type" 
+          formControlName="selectExteriorFinish"
+          >
+            <mat-option value="siding">Siding</mat-option>
+            <mat-option value="masonry">Masonry</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="paddingleft20" *ngIf="selectedFrameType == 'rooftype'" >
+        <mat-form-field>
+          <mat-select placeholder="Roof type" 
+          formControlName="selectRoofType"
+          >
+            <mat-option value="composition">Composition</mat-option>
+            <mat-option value="tile">Tile</mat-option>
+            <mat-option value="slate">Slate</mat-option>
+            <mat-option value="metal">Metal</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+      <div class="paddingleft20" *ngIf="selectedProjectType == 'retainingWall'" >
+        <mat-form-field>
+          <mat-select placeholder="Retaining Wall" 
+          formControlName="selectRetainingWallType"
+          (selectionChange)="SelectRetainingWallType($event)">
+            <mat-option value="type">Type</mat-option>            
+          </mat-select>
+        </mat-form-field>
+        
+        <div class="paddingleft20" *ngIf="selectedRetainingWallType == 'type'" >
+          <mat-form-field>
+            <mat-select placeholder="Type" 
+            formControlName="selectRetainingWallTypeType"
+            (selectionChange)="SelectRetainingWallTypeType($event)">
+              <mat-option value="concreteFooting">Concrete Footing</mat-option>
+              <mat-option value="wall">Wall</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="paddingleft20" *ngIf="selectedRetainingWallTypeType == 'wall'" >
+            <mat-form-field>
+              <mat-select placeholder="Wall" formControlName="selectRetainingWallTypeWall"
+              >
+                <mat-option value="concretereinforced">Concrete reinforced</mat-option>
+                <mat-option value="masonry">Masonry</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>          
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedProjectType == 'pool'" >
+        <mat-form-field>
+          <mat-select placeholder="Pool Type" formControlName="selectPoolType"
+          (selectionChange)="SelectPoolType($event)">
+            <mat-option value="companydesigning">Company Designing For (Contractor’s Installer)</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="paddingleft20" *ngIf="selectedPoolType == 'companydesigning'" >
+          <mat-form-field>
+            <mat-select 
+            placeholder="Company Designing For (Contractor’s Installer)"
+             formControlName="selectCompanydesigningType"
+            >
+              <mat-option value="piers">Piers</mat-option>
+              <mat-option value="structuralapron">Structural Apron/Deck?</mat-option>
+              <mat-option value="observations">Observations? </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="paddingleft20" *ngIf="selectedProjectType == 'other'" >
+        <mat-form-field>
+          <input matInput formControlName="other" placeholder="Other value">
+        </mat-form-field>
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit"  >Add</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-button type="button" mat-dialog-close style="position: absolute;top:0;right: 0;">
+      <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+    </button>
+    
+  </mat-dialog-actions>
+
+  
+  
+   
+
+
+</form>

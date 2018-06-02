@@ -1,0 +1,13 @@
+<div class="main-toolbar mat-elevation-z2" style="height: 45px;"  fxLayout="row" fxLayoutAlign="start center">
+  <span fxFlex></span>
+
+  <button mat-icon-button [fxHide]="true" [fxHide.gt-sm]="false" (click)="toggleFullscreen()">
+    <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+    <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+  </button>
+
+  <stbui-toolbar-notification></stbui-toolbar-notification>
+  <stbui-toolbar-user></stbui-toolbar-user>
+</div>
+
+<stbui-loading *ngIf="showLoading"></stbui-loading>

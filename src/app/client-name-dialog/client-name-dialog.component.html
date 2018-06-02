@@ -1,0 +1,56 @@
+<form [formGroup]="form" novalidate (ngSubmit)="submit(form)"  style="position: relative;">
+  <h1 mat-dialog-title>Add Client</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Company">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="keyperson" placeholder="Key Person">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="address" placeholder="Address">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="city" placeholder="city">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="State" formControlName="selectedstate">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+          {{ state.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="zip" placeholder="zipcode">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="phone" placeholder="Phone">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Email">
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <mat-select placeholder="Client or Prospective" formControlName="clientOrProspectSelect">
+        <mat-option  value="client">Client</mat-option>
+        <mat-option  value="prospect">Prospect</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit"  >Add</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-button type="button" mat-dialog-close style="position: absolute;top:0;right: 0;">
+        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+      </button>
+  </mat-dialog-actions>
+
+  
+  
+  
+
+
+</form>

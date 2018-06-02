@@ -1,0 +1,65 @@
+<form [formGroup]="form" novalidate (ngSubmit)="submit(form)"  style="position: relative;">
+  <h1 mat-dialog-title>Add Task</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="taskname" placeholder="Task">
+    </mat-form-field>
+    
+
+    <mat-form-field>
+      <mat-select placeholder="Task Status" formControlName="taskStatusSelect" >
+        <mat-option *ngFor="let status of taskStatuses" [value]="status.value">
+          {{ status.viewValue  }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>     
+
+    <mat-form-field>
+      <mat-select placeholder="Assigned to" formControlName="designedBySelect" >
+        <mat-option *ngFor="let employee of employees" [value]="employee.value">
+          {{ employee.viewValue  }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <input matInput formControlName="shortDescription" placeholder="Short Description">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput formControlName="fullDescription" placeholder="Full Description">
+    </mat-form-field> -->
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="deadlineDate" placeholder="Dead line" formControlName="deadlineDate">
+      <mat-datepicker-toggle matSuffix [for]="deadlineDate"></mat-datepicker-toggle>
+      <mat-datepicker #deadlineDate ></mat-datepicker>
+    </mat-form-field>
+  
+    <!-- <mat-form-field>
+      <input matInput formControlName="newReviewNotes" placeholder="New Review Notes">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="reviewNotes" placeholder="Review Notes">
+    </mat-form-field> -->
+
+    <mat-form-field>
+        <input matInput formControlName="note" placeholder="Note">
+      </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit"  >Add</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-button type="button" mat-dialog-close style="position: absolute;top:0;right: 0;">
+        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="width:40px" class="closeImg"/>
+    </button>
+  </mat-dialog-actions>
+
+  
+  
+  
+
+
+</form>

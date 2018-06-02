@@ -1,0 +1,36 @@
+<div class="sigin-conainer" fxLayout="column" fxLayoutAlign="center center">
+  <div class="sigin-main mat-elevation-z12">
+    <mat-card>
+      <mat-card-title>User Login<a class="redirect" [routerLink]="['/signup']">Register an account
+      </a></mat-card-title>
+      <mat-card-content>
+          <div *ngIf="isInvalidCredential" class="InvalidCredential">
+              Provided username and password are not correct
+            </div>
+        <form fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="userForm" (ngSubmit)="login()">          
+          <mat-form-field class="full-width">
+            <input type="username" id="username" class="input" placeholder="Please enter your user name"
+                   formControlName="username" required matInput>
+          </mat-form-field>
+          <div *ngIf="formErrors.username" class="help is-danger">
+            {{ formErrors.username }}
+          </div>
+          <mat-form-field class="full-width">
+            <input type="password" id="password" class="input" placeholder="please enter your password"
+                   formControlName="password" required matInput>
+          </mat-form-field>
+          <div *ngIf="formErrors.password" class="help is-danger">
+            {{ formErrors.password }}
+          </div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">login</button>
+        </form>
+
+        <!-- <div class="sign-third">
+          <button mat-raised-button (click)="signInWithGithub()">Sign in with Github</button>
+          <button mat-raised-button (click)="signInWithGoogle()">Sign in with Google</button>
+          <button mat-raised-button (click)="signInAnonymously()">Tourist account login</button>
+        </div> -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

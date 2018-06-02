@@ -1,0 +1,48 @@
+$gray-lighter: #eceeef !default;
+$image_path: "/assets/images/" !default;
+
+$prefix: 'sigin';
+
+.#{$prefix} {
+
+  &-conainer {
+    min-height: 100%;
+    background: $gray-lighter url('#{$image_path}background/login.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  &-main {
+    position: relative;
+    margin: 0 auto;
+    width: 500px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.help {
+
+}
+
+.is-danger {
+ 
+}
+
+.InvalidCredential
+{
+  color: rgb(168, 18, 18);
+  // border: 1px solid #831818;
+  font-weight: bold;
+}
+
+.sign-third {
+  margin-top: 15px;
+}
+
+.redirect {
+  font-size: 14px;
+  margin-left: 10px;
+  color: #00AAAA;
+}
